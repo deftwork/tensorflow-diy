@@ -13,4 +13,4 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ARG WHL_FILE=tensorflow
 
 RUN python$PY_VER -m pip install --upgrade pip && \
-    pip$PY_VER --no-cache-dir install $WHL_FILE  	
+    pip$PY_VER --no-cache-dir install $WHL_FILE  
