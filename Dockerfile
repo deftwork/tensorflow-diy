@@ -1,5 +1,5 @@
-ARG BASE_IMG=ubuntu:16.04
-FROM $BASE_IMG
+#ARG BASE_IMG=ubuntu:16.04
+FROM ubuntu:16.04
 
 LABEL mantainer="Eloy Lopez <elswork@gmail.com>"
 ARG PY_VER=3
