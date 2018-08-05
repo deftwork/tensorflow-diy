@@ -36,7 +36,8 @@ Build for arm32v7 architecture python2
 
 ```sh
 docker build -t elswork/tensorflow-diy:arm32v7-py2 \
- --build-arg PY_VER= WHL_FILE=https://www.piwheels.org/simple/tensorflow/tensorflow-1.9.0-cp27-none-linux_armv7l.whl .
+ --build-arg PY_VER= \
+ --build-arg WHL_FILE=https://www.piwheels.org/simple/tensorflow/tensorflow-1.9.0-cp27-none-linux_armv7l.whl .
 ```
 
 ## My Real Usage Example
