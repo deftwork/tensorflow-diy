@@ -6,10 +6,13 @@ TFARCH ?= armv7l
 TFURL ?= https://www.piwheels.org/simple/tensorflow/tensorflow-$(TFVER)-$(TFPY)-none-linux_$(TFARCH).whl
 TFURL2 ?= https://www.piwheels.org/simple/tensorflow/tensorflow-$(TFVER)-$(TFPY2)-none-linux_$(TFARCH).whl
 
+log:
+	
+
 build:
 	docker build --no-cache -t $(NAME):latest --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
 	--build-arg VCS_REF=`git rev-parse --short HEAD` \
-	--build-arg VERSION=latest-`cat VERSION` . > $$HOME/docker/builds/tf-diy_`date +"%Y%m%d_%H%M%S"`.txt
+	--build-arg VERSION=latest-`cat VERSION` . > ../builds/tf-diy_`date +"%Y%m%d_%H%M%S"`.txt
 tag:
 	docker tag $(NAME):latest $(NAME):latest-`cat VERSION`
 push:
@@ -21,7 +24,7 @@ build-py2:
 	docker build --no-cache -t $(NAME):latest-py2 --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
 	--build-arg VCS_REF=`git rev-parse --short HEAD` \
 	--build-arg VERSION=latest-py2-`cat VERSION` \
-    --build-arg PY_VER= . > $$HOME/docker/builds/tf-diy-py2_`date +"%Y%m%d_%H%M%S"`.txt
+    --build-arg PY_VER= . > ../builds/tf-diy-py2_`date +"%Y%m%d_%H%M%S"`.txt
 tag-py2:
 	docker tag $(NAME):latest-py2 $(NAME):latest-py2-`cat VERSION`
 push-py2:
@@ -33,7 +36,7 @@ build-arm:
 	docker build --no-cache -t $(NAME):arm32v7 --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
 	--build-arg VCS_REF=`git rev-parse --short HEAD` \
 	--build-arg VERSION=arm32v7-`cat VERSION` \
-	--build-arg WHL_FILE=$(TFURL) . > $$HOME/docker/builds/tf-diy-arm_`date +"%Y%m%d_%H%M%S"`.txt
+	--build-arg WHL_FILE=$(TFURL) . > ../builds/tf-diy-arm_`date +"%Y%m%d_%H%M%S"`.txt
 tag-arm:
 	docker tag $(NAME):arm32v7 $(NAME):arm32v7-`cat VERSION`
 push-arm:
@@ -46,7 +49,7 @@ build-arm-py2:
 	--build-arg VCS_REF=`git rev-parse --short HEAD` \
 	--build-arg VERSION=arm32v7-py2-`cat VERSION` \
     --build-arg PY_VER= \
-	--build-arg WHL_FILE=$(TFURL2) . > $$HOME/docker/builds/tf-diy-arm-py2_`date +"%Y%m%d_%H%M%S"`.txt
+	--build-arg WHL_FILE=$(TFURL2) . > ../builds/tf-diy-arm-py2_`date +"%Y%m%d_%H%M%S"`.txt
 tag-arm-py2:
 	docker tag $(NAME):arm32v7-py2 $(NAME):arm32v7-py2-`cat VERSION`
 push-arm-py2:

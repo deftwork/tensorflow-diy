@@ -13,7 +13,7 @@ With this file you will be able to choose the python version (default Python3) a
 | --- | --- | --- | --- | --- |
 | [tensorflow-diy](https://hub.docker.com/r/elswork/tensorflow-diy "elswork/tensorflow-diy on Docker Hub") | [![](https://img.shields.io/docker/pulls/elswork/tensorflow-diy.svg)](https://hub.docker.com/r/elswork/tensorflow-diy "tensorflow-diy on Docker Hub") | [![](https://img.shields.io/docker/stars/elswork/tensorflow-diy.svg)](https://hub.docker.com/r/elswork/tensorflow-diy "tensorflow-diy on Docker Hub") | [![](https://img.shields.io/docker/build/elswork/tensorflow-diy.svg)](https://hub.docker.com/r/elswork/tensorflow-diy "tensorflow-diy on Docker Hub") | [![](https://images.microbadger.com/badges/image/elswork/tensorflow-diy.svg)](https://microbadger.com/images/elswork/tensorflow-diy "tensorflow-diy on microbadger.com") |
 
-This image is the base image for a group of images [Data Science Docker Stacks](https://goo.gl/qvx7Vv)
+This image is the base image for a set of images [Data Science Docker Stacks](https://goo.gl/qvx7Vv)
 
 ## Build Instructions
 
