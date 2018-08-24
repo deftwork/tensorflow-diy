@@ -6,9 +6,6 @@ TFARCH ?= armv7l
 TFURL ?= https://www.piwheels.org/simple/tensorflow/tensorflow-$(TFVER)-$(TFPY)-none-linux_$(TFARCH).whl
 TFURL2 ?= https://www.piwheels.org/simple/tensorflow/tensorflow-$(TFVER)-$(TFPY2)-none-linux_$(TFARCH).whl
 
-log:
-	
-
 build:
 	docker build --no-cache -t $(NAME):latest --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
 	--build-arg VCS_REF=`git rev-parse --short HEAD` \
