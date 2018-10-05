@@ -1,5 +1,5 @@
 NAME ?= elswork/tensorflow-diy
-TFVER ?= 1.10.0
+TFVER ?= 1.10.1
 TFPY ?= cp35
 TFPY2 ?= cp27
 TFARCH ?= armv7l
