@@ -20,26 +20,26 @@ This image is the base image for a set of images [Data Science Docker Stacks](ht
 Build for amd64 architecture python3
 
 ```sh
-docker build -t elswork/tensorflow-diy:latest .
+docker build -t elswork/tensorflow-diy:amd64 .
 ```
 
 Build for amd64 architecture python2
 
 ```sh
-docker build -t elswork/tensorflow-diy:latest-py2 --build-arg PY_VER= .
+docker build -t elswork/tensorflow-diy:amd64-py2 --build-arg PY_VER= .
 ```
 
 Build for arm32v7 architecture python3
 
 ```sh
-docker build -t elswork/tensorflow-diy:latest \
+docker build -t elswork/tensorflow-diy:arm32v7 \
  --build-arg WHL_FILE=https://www.piwheels.org/simple/tensorflow/tensorflow-1.9.0-cp35-none-linux_armv7l.whl .
 ```
 
 Build for arm32v7 architecture python2
 
 ```sh
-docker build -t elswork/tensorflow-diy:latest-py2 \
+docker build -t elswork/tensorflow-diy:arm32v7-py2 \
  --build-arg PY_VER= \
  --build-arg WHL_FILE=https://www.piwheels.org/simple/tensorflow/tensorflow-1.9.0-cp27-none-linux_armv7l.whl .
 ```
