@@ -17,11 +17,13 @@ push:
 	docker push $(NAME):amd64	
 deploy: build tag push
 manifest:
-	docker manifest create $(NAME):latest-`cat VERSION` $(NAME):amd64-`cat VERSION` \
-	$(NAME):arm32v7`cat VERSION-arm32v7`
-	docker manifest push --purge $(NAME):latest-`cat VERSION`
+	docker manifest create $(NAME):`cat VERSION` $(NAME):amd64-`cat VERSION` \
+	$(NAME):arm32v7-`cat VERSION-arm32v7`
+	docker manifest push --purge $(NAME):`cat VERSION`
 	docker manifest create $(NAME):latest $(NAME):amd64 $(NAME):arm32v7
 	docker manifest push --purge $(NAME):latest
+start:
+	docker run -it $(NAME):amd64
 
 build-py2:
 	docker build --no-cache -t $(NAME):amd64-py2 --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
@@ -35,11 +37,13 @@ push-py2:
 	docker push $(NAME):amd64-py2	
 deploy-py2: build-py2 tag-py2 push-py2
 manifest-py2:
-	docker manifest create $(NAME):latest-py2-`cat VERSION` $(NAME):amd64-py2-`cat VERSION` \
-	$(NAME):arm32v7-py2`cat VERSION-arm32v7`
-	docker manifest push --purge $(NAME):latest-py2-`cat VERSION`
+	docker manifest create $(NAME):py2-`cat VERSION` $(NAME):amd64-py2-`cat VERSION` \
+	$(NAME):arm32v7-py2-`cat VERSION-arm32v7`
+	docker manifest push --purge $(NAME):py2-`cat VERSION`
 	docker manifest create $(NAME):latest-py2 $(NAME):amd64-py2 $(NAME):arm32v7-py2
 	docker manifest push --purge $(NAME):latest-py2
+start-py2:
+	docker run -it $(NAME):amd64-py2
 
 build-arm:
 	docker build --no-cache -t $(NAME):arm32v7 --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
@@ -52,6 +56,8 @@ push-arm:
 	docker push $(NAME):arm32v7-`cat VERSION-arm32v7`
 	docker push $(NAME):arm32v7	
 deploy-arm: build-arm tag-arm push-arm
+start-arm:
+	docker run -it $(NAME):arm32v7
 
 build-arm-py2:
 	docker build --no-cache -t $(NAME):arm32v7-py2 --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
@@ -65,3 +71,5 @@ push-arm-py2:
 	docker push $(NAME):arm32v7-py2-`cat VERSION-arm32v7`
 	docker push $(NAME):arm32v7-py2	
 deploy-arm-py2: build-arm-py2 tag-arm-py2 push-arm-py2
+start-arm-py2:
+	docker run -it $(NAME):arm32v7-py2
