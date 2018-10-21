@@ -16,7 +16,7 @@ LABEL mantainer="Eloy Lopez <elswork@gmail.com>" \
     org.label-schema.schema-version="1.0"
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libatlas-base-dev python-h5py \
+    libatlas-base-dev python3-h5py \
     python$PY_VER python$PY_VER-dev python$PY_VER-pip python$PY_VER-setuptools && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
