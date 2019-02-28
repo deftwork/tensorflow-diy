@@ -15,6 +15,10 @@ With this file you will be able to choose the python version (default Python3) a
 
 This image is the base image for a set of images [Data Science Docker Stacks](https://goo.gl/qvx7Vv)
 
+## Latest Enhancements
+- Upgrade Ubuntu version to 18.04
+- Upgrade Pyhton version to 3.6
+
 ## Build Instructions
 
 Build for amd64 architecture python3
@@ -29,17 +33,17 @@ Build for amd64 architecture python2
 docker build -t elswork/tensorflow-diy:amd64-py2 --build-arg PY_VER= .
 ```
 
-Build for arm32v7 architecture python3
+Build for armv7l architecture python3
 
 ```sh
-docker build -t elswork/tensorflow-diy:arm32v7 \
+docker build -t elswork/tensorflow-diy:armv7l \
  --build-arg WHL_FILE=https://www.piwheels.org/simple/tensorflow/tensorflow-1.9.0-cp35-none-linux_armv7l.whl .
 ```
 
-Build for arm32v7 architecture python2
+Build for armv7l architecture python2
 
 ```sh
-docker build -t elswork/tensorflow-diy:arm32v7-py2 \
+docker build -t elswork/tensorflow-diy:armv7l-py2 \
  --build-arg PY_VER= \
  --build-arg WHL_FILE=https://www.piwheels.org/simple/tensorflow/tensorflow-1.9.0-cp27-none-linux_armv7l.whl .
 ```
@@ -47,13 +51,13 @@ docker build -t elswork/tensorflow-diy:arm32v7-py2 \
 ## My Real Usage Example
 
 In order everyone could take full advantages of the usage of this docker container, I'll describe my own real usage setup.
-Python3 flavour for amd64 or arm32v7 architecture (thanks to its [Multi-Arch](https://blog.docker.com/2017/11/multi-arch-all-the-things/) base image)
+Python3 flavour for amd64 or armv7l architecture (thanks to its [Multi-Arch](https://blog.docker.com/2017/11/multi-arch-all-the-things/) base image)
 
 ```sh
 docker run -it elswork/tensorflow-diy:latest
 ```
 
-Python2 flavour for amd64 or arm32v7 architecture
+Python2 flavour for amd64 or armv7l architecture
 
 ```sh
 docker run -it elswork/tensorflow-diy:latest-py2
