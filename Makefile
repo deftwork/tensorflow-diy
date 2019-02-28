@@ -1,7 +1,7 @@
 SNAME ?= tensorflow-diy
 NAME ?= elswork/$(SNAME)
-#GOARCH ?= armv7l
-GOARCH ?= amd64
+GOARCH ?= armv7l
+#GOARCH ?= amd64
 ARCH2 ?= armv7l
 VER ?= `cat VERSION`
 #VERPY ?=
@@ -10,8 +10,8 @@ VERPY ?= -py2
 3PY ?=
 #TFPY ?= cp36
 TFPY ?= cp27
-#TFURL ?= https://www.piwheels.org/simple/tensorflow/tensorflow-$(VER)-$(TFPY)-none-linux_$(ARCH2).whl
-TFURL ?=tensorflow==$(VER)
+TFURL ?= https://www.piwheels.org/simple/tensorflow/tensorflow-$(VER)-$(TFPY)-none-linux_$(ARCH2).whl
+#TFURL ?=tensorflow==$(VER)
 
 # HELP
 # This will output the help for each task
