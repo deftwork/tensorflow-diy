@@ -1,9 +1,10 @@
-FROM ubuntu:16.04
+FROM ubuntu:latest
 
 ARG PY_VER=3
 ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
+ARG TFVERSION
 LABEL mantainer="Eloy Lopez <elswork@gmail.com>" \
     org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.name="tensorflow-diy" \
@@ -21,7 +22,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-ARG WHL_FILE=tensorflow==1.11.0
+ARG WHL_FILE=tensorflow==$TFVERSION
 
 RUN python$PY_VER -m pip install --upgrade pip && \
     pip$PY_VER --no-cache-dir install $WHL_FILE  

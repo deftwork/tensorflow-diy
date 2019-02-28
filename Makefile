@@ -1,75 +1,48 @@
-NAME ?= elswork/tensorflow-diy
-TFVER ?= `cat VERSION-arm32v7`
-TFPY ?= cp35
-TFPY2 ?= cp27
-TFARCH ?= armv7l
-TFURL ?= https://www.piwheels.org/simple/tensorflow/tensorflow-$(TFVER)-$(TFPY)-none-linux_$(TFARCH).whl
-TFURL2 ?= https://www.piwheels.org/simple/tensorflow/tensorflow-$(TFVER)-$(TFPY2)-none-linux_$(TFARCH).whl
+SNAME ?= tensorflow-diy
+NAME ?= elswork/$(SNAME)
+GOARCH ?= armv7l
+#GOARCH ?= amd64
+ARCH2 ?= armv7l
+VER ?= `cat VERSION`
+VERPY ?=
+# VERPY ?= -py2
+3PY ?= 3
+# 3PY ?=
+TFPY ?= cp36
+#TFPY ?= cp27
+TFURL ?= https://www.piwheels.org/simple/tensorflow/tensorflow-$(VER)-$(TFPY)-none-linux_$(ARCH2).whl
+#TFURL ?=tensorflow==$(VER)
 
-build:
-	docker build --no-cache -t $(NAME):amd64 --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
+# HELP
+# This will output the help for each task
+# thanks to https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
+.PHONY: help
+
+help: ## This help.
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+
+.DEFAULT_GOAL := help
+
+# DOCKER TASKS
+# Build the container
+
+build: ## Build the container
+	docker build --no-cache -t $(NAME):$(GOARCH)$(VERPY) --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
 	--build-arg VCS_REF=`git rev-parse --short HEAD` \
-	--build-arg VERSION=amd64-`cat VERSION` . > ../builds/tf-diy_`date +"%Y%m%d_%H%M%S"`.txt
+	--build-arg VERSION=$(SNAME)_$(GOARCH)_$(VER)$(VERPY) \
+	--build-arg TFVERSION=$(VER) \
+	--build-arg WHL_FILE=$(TFURL) \
+	--build-arg PY_VER=$(3PY) . > ../builds/$(SNAME)_$(GOARCH)_$(VER)$(VERPY)_`date +"%Y%m%d_%H%M%S"`.txt
 tag:
-	docker tag $(NAME):amd64 $(NAME):amd64-`cat VERSION`
+	docker tag $(NAME):$(GOARCH)$(VERPY) $(NAME):$(GOARCH)_$(VER)$(VERPY)
 push:
-	docker push $(NAME):amd64-`cat VERSION`
-	docker push $(NAME):amd64	
+	docker push $(NAME):$(GOARCH)_$(VER)$(VERPY)
+	docker push $(NAME):$(GOARCH)$(VERPY)	
 deploy: build tag push
 manifest:
-	docker manifest create $(NAME):`cat VERSION` $(NAME):amd64-`cat VERSION` \
-	$(NAME):arm32v7-`cat VERSION-arm32v7`
-	docker manifest push --purge $(NAME):`cat VERSION`
-	docker manifest create $(NAME):latest $(NAME):amd64 $(NAME):arm32v7
-	docker manifest push --purge $(NAME):latest
+	docker manifest create $(NAME):$(VER)$(VERPY) $(NAME):$(GOARCH)_$(VER)$(VERPY) $(NAME):$(ARCH2)_$(VER)$(VERPY)
+	docker manifest push --purge $(NAME):$(VER)$(VERPY)
+	docker manifest create $(NAME):latest$(VERPY) $(NAME):$(GOARCH)$(VERPY) $(NAME):$(ARCH2)$(VERPY)
+	docker manifest push --purge $(NAME):latest$(VERPY)
 start:
-	docker run -it $(NAME):amd64
-
-build-py2:
-	docker build --no-cache -t $(NAME):amd64-py2 --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-	--build-arg VCS_REF=`git rev-parse --short HEAD` \
-	--build-arg VERSION=amd64-py2-`cat VERSION` \
-    --build-arg PY_VER= . > ../builds/tf-diy-py2_`date +"%Y%m%d_%H%M%S"`.txt
-tag-py2:
-	docker tag $(NAME):amd64-py2 $(NAME):amd64-py2-`cat VERSION`
-push-py2:
-	docker push $(NAME):amd64-py2-`cat VERSION`
-	docker push $(NAME):amd64-py2	
-deploy-py2: build-py2 tag-py2 push-py2
-manifest-py2:
-	docker manifest create $(NAME):py2-`cat VERSION` $(NAME):amd64-py2-`cat VERSION` \
-	$(NAME):arm32v7-py2-`cat VERSION-arm32v7`
-	docker manifest push --purge $(NAME):py2-`cat VERSION`
-	docker manifest create $(NAME):latest-py2 $(NAME):amd64-py2 $(NAME):arm32v7-py2
-	docker manifest push --purge $(NAME):latest-py2
-start-py2:
-	docker run -it $(NAME):amd64-py2
-
-build-arm:
-	docker build --no-cache -t $(NAME):arm32v7 --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-	--build-arg VCS_REF=`git rev-parse --short HEAD` \
-	--build-arg VERSION=arm32v7-`cat VERSION-arm32v7` \
-	--build-arg WHL_FILE=$(TFURL) . > ../builds/tf-diy-arm_`date +"%Y%m%d_%H%M%S"`.txt
-tag-arm:
-	docker tag $(NAME):arm32v7 $(NAME):arm32v7-`cat VERSION-arm32v7`
-push-arm:
-	docker push $(NAME):arm32v7-`cat VERSION-arm32v7`
-	docker push $(NAME):arm32v7	
-deploy-arm: build-arm tag-arm push-arm
-start-arm:
-	docker run -it $(NAME):arm32v7
-
-build-arm-py2:
-	docker build --no-cache -t $(NAME):arm32v7-py2 --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-	--build-arg VCS_REF=`git rev-parse --short HEAD` \
-	--build-arg VERSION=arm32v7-py2-`cat VERSION-arm32v7` \
-    --build-arg PY_VER= \
-	--build-arg WHL_FILE=$(TFURL2) . > ../builds/tf-diy-arm-py2_`date +"%Y%m%d_%H%M%S"`.txt
-tag-arm-py2:
-	docker tag $(NAME):arm32v7-py2 $(NAME):arm32v7-py2-`cat VERSION-arm32v7`
-push-arm-py2:
-	docker push $(NAME):arm32v7-py2-`cat VERSION-arm32v7`
-	docker push $(NAME):arm32v7-py2	
-deploy-arm-py2: build-arm-py2 tag-arm-py2 push-arm-py2
-start-arm-py2:
-	docker run -it $(NAME):arm32v7-py2
+	docker run -it $(NAME):$(GOARCH)$(VERPY)
