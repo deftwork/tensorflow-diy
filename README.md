@@ -37,7 +37,7 @@ Build for armv7l architecture python3
 
 ```sh
 docker build -t elswork/tensorflow-diy:armv7l \
- --build-arg WHL_FILE=https://www.piwheels.org/simple/tensorflow/tensorflow-1.9.0-cp35-none-linux_armv7l.whl .
+ --build-arg WHL_FILE=https://www.piwheels.org/simple/tensorflow/tensorflow-1.12.0-cp36-none-linux_armv7l.whl .
 ```
 
 Build for armv7l architecture python2
