@@ -33,16 +33,16 @@ build: ## Build the container
 	--build-arg TFVERSION=$(VER) \
 	--build-arg WHL_FILE=$(TFURL) \
 	--build-arg PY_VER=$(3PY) . > ../builds/$(SNAME)_$(GOARCH)_$(VER)$(VERPY)_`date +"%Y%m%d_%H%M%S"`.txt
-tag:
+tag: ## Tag the container
 	docker tag $(NAME):$(GOARCH)$(VERPY) $(NAME):$(GOARCH)_$(VER)$(VERPY)
-push:
+push: ## Push the container
 	docker push $(NAME):$(GOARCH)_$(VER)$(VERPY)
 	docker push $(NAME):$(GOARCH)$(VERPY)	
 deploy: build tag push
-manifest:
+manifest: ## Create an push manifest
 	docker manifest create $(NAME):$(VER)$(VERPY) $(NAME):$(GOARCH)_$(VER)$(VERPY) $(NAME):$(ARCH2)_$(VER)$(VERPY)
 	docker manifest push --purge $(NAME):$(VER)$(VERPY)
 	docker manifest create $(NAME):latest$(VERPY) $(NAME):$(GOARCH)$(VERPY) $(NAME):$(ARCH2)$(VERPY)
 	docker manifest push --purge $(NAME):latest$(VERPY)
-start:
+start: ## Start the contaner
 	docker run -it $(NAME):$(GOARCH)$(VERPY)
