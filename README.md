@@ -16,8 +16,8 @@ With this file you will be able to choose the python version (default Python3) a
 This image is the base image for a set of images [Data Science Docker Stacks](https://goo.gl/qvx7Vv)
 
 ## Latest Enhancements
-- Upgrade Ubuntu version to 18.04
-- Upgrade Pyhton version to 3.6
+- Upgrade Ubuntu version to 16.04
+- Upgrade Pyhton version to 3.5
 
 ## Build Instructions
 
@@ -36,16 +36,13 @@ docker build -t elswork/tensorflow-diy:amd64-py2 --build-arg PY_VER= .
 Build for armv7l architecture python3
 
 ```sh
-docker build -t elswork/tensorflow-diy:armv7l \
- --build-arg WHL_FILE=https://www.piwheels.org/simple/tensorflow/tensorflow-1.12.0-cp36-none-linux_armv7l.whl .
+docker build -t elswork/tensorflow-diy:armv7l .
 ```
 
 Build for armv7l architecture python2
 
 ```sh
-docker build -t elswork/tensorflow-diy:armv7l-py2 \
- --build-arg PY_VER= \
- --build-arg WHL_FILE=https://www.piwheels.org/simple/tensorflow/tensorflow-1.9.0-cp27-none-linux_armv7l.whl .
+docker build -t elswork/tensorflow-diy:armv7l-py2 --build-arg PY_VER= .
 ```
 
 ## My Real Usage Example
