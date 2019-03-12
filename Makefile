@@ -3,7 +3,7 @@ NAME ?= elswork/$(SNAME)
 BASENAME ?= ubuntu:16.04
 VER ?= `cat VERSION`
 # Put 3 or leave empty to specify Python3 or Python2
-3PY ?= 3
+3PY ?=
 ifeq ($(3PY),3)
 	VERPY ?=
 	TFPY ?= cp35
