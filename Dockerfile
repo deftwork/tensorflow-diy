@@ -1,7 +1,6 @@
 ARG BASEIMAGE=ubuntu:16.04
 FROM ${BASEIMAGE}
 
-ARG PY_VER=3
 ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
@@ -19,7 +18,7 @@ LABEL mantainer="Eloy Lopez <elswork@gmail.com>" \
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libatlas-base-dev \
-    python$PY_VER-dev python$PY_VER-pip python$PY_VER-h5py && \
+    python3-dev python3-pip python3-h5py && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -30,6 +29,6 @@ RUN mkdir -p $HOME/.config/pip && \
 
 ARG WHL_FILE=tensorflow==$TFVERSION
 
-RUN python$PY_VER -m pip install --upgrade pip setuptools && \
-    pip$PY_VER --no-cache-dir install --user --upgrade $WHL_FILE 
+RUN python3 -m pip install --upgrade pip setuptools && \
+    pip3 --no-cache-dir install --user --upgrade $WHL_FILE 
 

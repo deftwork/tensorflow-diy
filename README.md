@@ -1,7 +1,7 @@
 # Tensorflow DIY
 
 A [Docker](http://docker.com) file to build images for AMD & ARM devices with [Tensorflow](https://www.tensorflow.org/) an open source software library for numerical computation using data flow graphs.
-With this file you will be able to choose the python version (default Python3) and the tensorflow wheel file.
+With this file you will be able to choose the Python3 version and the tensorflow wheel file.
 
 > Be aware! You should read carefully the usage documentation of every tool!
 
@@ -18,6 +18,7 @@ This image is the base image for a set of images [Data Science Docker Stacks](ht
 ## Latest Enhancements
 - Upgrade Ubuntu version to 16.04
 - Upgrade Pyhton version to 3.5
+- Retired Python 2.7 version
 
 ## Build Instructions
 
@@ -27,22 +28,10 @@ Build for amd64 architecture python3
 docker build -t elswork/tensorflow-diy:amd64 .
 ```
 
-Build for amd64 architecture python2
-
-```sh
-docker build -t elswork/tensorflow-diy:amd64-py2 --build-arg PY_VER= .
-```
-
 Build for armv7l architecture python3
 
 ```sh
 docker build -t elswork/tensorflow-diy:armv7l .
-```
-
-Build for armv7l architecture python2
-
-```sh
-docker build -t elswork/tensorflow-diy:armv7l-py2 --build-arg PY_VER= .
 ```
 
 ## My Real Usage Example
@@ -52,10 +41,4 @@ Python3 flavour for amd64 or armv7l architecture (thanks to its [Multi-Arch](htt
 
 ```sh
 docker run -it elswork/tensorflow-diy:latest
-```
-
-Python2 flavour for amd64 or armv7l architecture
-
-```sh
-docker run -it elswork/tensorflow-diy:latest-py2
 ```
