@@ -15,7 +15,7 @@ With this file you will be able to choose the Python3 version and the tensorflow
 
 [![HitCount](http://hits.dwyl.io/DeftWork/tensorflow-diy.svg)](http://hits.dwyl.io/DeftWork/tensorflow-diy)
 
-This image is the base image for a set of images [Data Science Docker Stacks](https://goo.gl/qvx7Vv)
+This image is the base image for a set of images [Data Science Docker Stacks](https://gist.github.com/elswork/863053972ffb86f036c0bf4fb6c7e691)
 
 ## Latest Enhancements
 - Upgrade Ubuntu version to 16.04
